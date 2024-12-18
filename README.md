@@ -58,7 +58,7 @@ Read the HTML comments to understand how it works.
 
 To customize the home page, you can write your own custom `index.ejs`. The template file can display the installed apps using the following attributes:
 
-- `kernel`: kernel API
+- `kernel`: kernel API. Can use this to get low level info on pretty much everything on Pinokio. See https://github.com/pinokiocomputer/pinokiod/blob/main/kernel/index.js for more info.
 - `agent`: **"electron"** (running as an app) or **"web"** (running as a server)
 - `items`: An array of installed app items
   - `icon`: `icon` value in `pinokio.js`
