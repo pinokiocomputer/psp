@@ -2,7 +2,7 @@ const path = require('path')
 module.exports = {
   version: "3.0",
   title: "PSP",
-  description: "Pinokio System Programming",
+  description: "Pinokio System Programming: Make your own custom Pinokio",
   icon: "web/public/icon.png",
   menu: async (kernel, info) => {
     let running = {
