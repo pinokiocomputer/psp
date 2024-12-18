@@ -11,7 +11,7 @@
 **(Recommended)** Install this through https://pinokio.computer
 
 1. Get PSP
-2. Click "Install" to get started. This will copy the ocntents of the [web](web) folder into your `~/pinokio/web` path.
+2. Click "Install" to get started. This will copy the the [web](web) folder into your `~/pinokio/web` path.
 
 To customize, try experimenting with the contents of the `~/pinokio/web` folder
 
@@ -20,7 +20,7 @@ To uninstall, click "uninstall". This should remove the `~/pinokio/weeb` folder,
 ## 2. Manual Install
 
 1. Go to your pinokio home folder (for example `~/pinokio`)
-2. Copy the contents of the [web](web) folder under `~/pinokio` so the folder structure would look like this:
+2. Copy the [web](web) folder into `~/pinokio` so the folder structure would look like this:
 
 ```
 ~/pinokio
@@ -107,9 +107,9 @@ You can do this by adding your own `/web/views/index.ejs` file. Here's an exampl
 
 Each app page can be customized too.
 
-Unlike the Home page, which can be completely customized with your own HTML, the app page currently allows only CSS customization.
+Unlike the Home page--which can be completely customized with your own EJS template---the app page currently supports only CSS customization.
 
-You can do this by adding your own `/web/public/browser.css` file. Here's an example:
+You can do this by adding your own [web/public/browser.css](web/public/browser.css) file. Here's an example:
 
 ```css
 body {
