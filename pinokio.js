@@ -40,6 +40,11 @@ module.exports = {
           href: kernel.path("web/views"),
           fs: "view"
         }, {
+          icon: "fa-solid fa-book",
+          text: "Learn",
+          href: "https://github.com/pinokiocomputer/psp",
+          popout: true
+        }, {
           icon: "fa-solid fa-plug",
           text: "Install",
           href: "install.js",
@@ -57,6 +62,12 @@ module.exports = {
           icon: "fa-solid fa-plug",
           text: "Install",
           href: "install.js",
+          default: true,
+        }, {
+          icon: "fa-solid fa-book",
+          text: "Learn",
+          href: "https://github.com/pinokiocomputer/psp",
+          popout: true
         }, {
           icon: "fa-solid fa-plug",
           text: "Update",
