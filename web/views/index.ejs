@@ -119,14 +119,14 @@ footer input {
 
   <!--Display the running apps-->
   <% if (item.running) { %>
-    <a class='item running' data-browse-url="<%=item.browse_url%>" data-href="<%=item.url%>" onclick="click(event)">
+    <a class='item running' data-browse-url="<%=item.browse_url%>" data-href="<%=item.url%>" onclick="visit(event)">
       <img src="<%=item.icon%>"/>
       <div class='name'><%=item.name%></div>
     </a>
   <% } else { %>
 
     <!--Display the apps that are not running-->
-    <a class='item' data-browse-url="<%=item.browse_url%>" data-href="<%=item.url%>" data-name="<%=item.name%>" data-description="<%=item.description%>" data-path="<%=item.path%>" onclick="click(event)">
+    <a class='item' data-browse-url="<%=item.browse_url%>" data-href="<%=item.url%>" data-name="<%=item.name%>" data-description="<%=item.description%>" data-path="<%=item.path%>" onclick="visit(event)">
       <% if (item.icon) { %>
         <img src="<%=item.icon%>"/>
       <% } else { %>
@@ -142,11 +142,11 @@ footer input {
 <footer>
   <div class='container'>
     <div class='btns'>
-      <a class='btn' href="/?mode=explore"><i class="fa-solid fa-globe"></i></a>
+      <a class='btn' href="/?mode=explore"><i class="fa-solid fa-magnifying-glass"></i></a>
       <a class='btn' href="https://portal.pinokio.computer"><i class="fa-solid fa-question"></i></a>
       <a class='btn' href="/?mode=settings"><i class="fa-solid fa-gear"></i></a>
     </div>
-    <input id='search' type='search' placeholder='search' autofocus/>
+    <input id='search' type='filter apps' placeholder='search' autofocus/>
   </div>
 </footer>
 <script>
@@ -194,7 +194,7 @@ document.querySelector("#search").addEventListener("input", (e) => {
 *   Handle Icon Click: Visit the app page when clicked
 *
 ****************************************************************/
-const click = (event) => {
+const visit = (event) => {
   let target = event.target
   if (!target.classList.contains("item")) {
     target = event.target.closest(".item")
