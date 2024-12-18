@@ -125,7 +125,7 @@ Each app page can be customized too.
 
 Unlike the Home page--which can be completely customized with your own EJS template---the app page currently supports only CSS customization.
 
-You can do this by adding your own [web/public/browser.css](web/public/browser.css) file. Here's an example:
+You can do this by adding your own [web/public/app.css](web/public/app.css) file. Here's an example:
 
 ```css
 body {
