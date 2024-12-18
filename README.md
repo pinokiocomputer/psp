@@ -8,6 +8,8 @@
 
 ## 1. One-Click Install
 
+![psp.gif](psp.gif)
+
 **(Recommended)** Install this through https://pinokio.computer
 
 1. Get PSP
