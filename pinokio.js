@@ -62,7 +62,6 @@ module.exports = {
           icon: "fa-solid fa-plug",
           text: "Install",
           href: "install.js",
-          default: true,
         }, {
           icon: "fa-solid fa-book",
           text: "Learn",
