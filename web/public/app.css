@@ -1,0 +1,20 @@
+:root {
+  --background: black;
+  --color: yellowgreen;
+}
+body {
+  background: var(--background) !important;
+  color: var(--color) !important;
+}
+aside {
+  background: transparent !important;
+}
+nav {
+  background: none !important;
+}
+.header-item.btn {
+  color: var(--color) !important;
+}
+.btn2 {
+  color: var(--color) !important;
+}

@@ -1,0 +1,248 @@
+<html>
+<head>
+<!-- Required inclusino of electron specific CSS when the agent is 'electron' -->
+<% if (agent === "electron") { %>
+<link href="/electron.css" rel="stylesheet">
+<% } %>
+
+<!-- Use the FontAwesome Icons built into Pinokio https://fontawesome.com/search -->
+<link href="/css/fontawesome.min.css" rel="stylesheet">
+<link href="/css/solid.min.css" rel="stylesheet">
+<link href="/css/regular.min.css" rel="stylesheet">
+
+<!-- Use Tippy/Popper for displaying the context menu -->
+<link href"/tippy.css" rel='stylesheet'>
+<script src="/popperjs.js"></script>
+<script src="/tippy.js"></script>
+
+<!-- Customize the Stylesheet to make it your own -->
+<style>
+body {
+  background-image: url('bg.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  margin: 0;
+}
+main {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 100px 50px;
+  box-sizing: border-box;
+  font-family: Sans-serif;
+  font-size: 12px;
+  justify-content: center;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 50px;
+}
+footer .container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+}
+footer .container .btns {
+  display: flex;
+}
+footer .container .btn i {
+  display: block;
+}
+footer .container .btn {
+  font-size: 14px;
+  text-align: center;
+  font-family: sans-serif;
+  color: white;
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+  margin-right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+footer input {
+  flex-grow: 1;
+  padding: 10px;
+  border: none;
+  display: block;
+  box-sizing: border-box;
+}
+.item {
+  width: 50px;
+  text-decoration: none;
+  color: white;
+  padding: 20px;
+  cursor: pointer;
+}
+.item.running {
+  color: yellowgreen;
+  font-weight: bold;
+}
+.item:hover {
+  background: rgba(0,0,0,0.1);
+}
+.item img {
+  width: 100%;
+  display: block;
+  border-radius: 100px;
+}
+.item .name {
+  text-overflow: ellipsis ellipsis;
+  text-align: center;
+  margin-top: 5px;
+}
+.hidden {
+  display: none !important;
+}
+.menuitem:hover {
+  color: royalblue;
+}
+.menuitem {
+  padding: 5px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<!--The "grabbable" header is needed in order to let users grab the header and move around the window-->
+<header class='grabbable'></header>
+
+<!--Display the installed items-->
+<main>
+<% items.forEach((item) => { %>
+
+  <!--Display the running apps-->
+  <% if (item.running) { %>
+    <a class='item running' data-browse-url="<%=item.browse_url%>" data-href="<%=item.url%>" onclick="click(event)">
+      <img src="<%=item.icon%>"/>
+      <div class='name'><%=item.name%></div>
+    </a>
+  <% } else { %>
+
+    <!--Display the apps that are not running-->
+    <a class='item' data-browse-url="<%=item.browse_url%>" data-href="<%=item.url%>" data-name="<%=item.name%>" data-description="<%=item.description%>" data-path="<%=item.path%>" onclick="click(event)">
+      <% if (item.icon) { %>
+        <img src="<%=item.icon%>"/>
+      <% } else { %>
+        <img src="icon.png"/>
+      <% } %>
+      <div class='name'><%=item.name%></div>
+    </a>
+  <% } %>
+<% }) %>
+</main>
+
+<!--The footer dock-->
+<footer>
+  <div class='container'>
+    <div class='btns'>
+      <a class='btn' href="/?mode=explore"><i class="fa-solid fa-globe"></i></a>
+      <a class='btn' href="https://portal.pinokio.computer"><i class="fa-solid fa-question"></i></a>
+      <a class='btn' href="/?mode=settings"><i class="fa-solid fa-gear"></i></a>
+    </div>
+    <input id='search' type='search' placeholder='search' autofocus/>
+  </div>
+</footer>
+<script>
+/****************************************************************
+*
+*   Realtime search function
+*
+****************************************************************/
+const filter = (items, value) => {
+  for(let i=0; i<items.length; i++) {
+    let item = items[i]
+    let re = new RegExp(value, "i")
+    if (re.test(item.name)) {
+      item.el.classList.remove("hidden")
+    } else if (re.test(item.description)) {
+      item.el.classList.remove("hidden")
+    } else if (re.test(item.path)) {
+      item.el.classList.remove("hidden")
+    } else {
+      item.el.classList.add("hidden")
+    }
+  }
+}
+
+/************************************************************************
+*
+*   Call filter() whenever a new input is entered in the search box
+*
+************************************************************************/
+document.querySelector("#search").addEventListener("input", (e) => {
+  let items = []
+  document.querySelectorAll(".item").forEach((el) => {
+    items.push({
+      name: el.getAttribute("data-name"),
+      description: el.getAttribute("data-description"),
+      path: el.getAttribute("data-path"),
+      el
+    })
+  })
+  filter(items, e.target.value)
+})
+
+/****************************************************************
+*
+*   Handle Icon Click: Visit the app page when clicked
+*
+****************************************************************/
+const click = (event) => {
+  let target = event.target
+  if (!target.classList.contains("item")) {
+    target = event.target.closest(".item")
+  }
+  location.href = target.getAttribute("data-href")
+}
+
+/****************************************************************
+*
+*   Context Menu: Handle right click on icons
+*   1. Select "Open" => run()
+*   2. Select "Browse" => browse()
+*
+****************************************************************/
+tippy('.item', {
+  content: `
+    <div class='menuitem' onclick="run(event)">Open</div>
+    <div class='menuitem' onclick="browse(event)">Browse</div>
+  `,
+  placement: 'bottom',
+  allowHTML: true,
+  interactive: true,
+  trigger: 'contextmenu',
+  onTrigger(instance, event) {
+    event.preventDefault()
+    console.log({ instance, event })
+    let attr = instance.reference.getAttribute("data-browse-url")
+    let attr2 = instance.reference.getAttribute("data-href")
+    instance.popper.setAttribute("data-browse-url", attr)
+    instance.popper.setAttribute("data-href", attr2)
+  },
+});
+
+const run = (event) => {
+  event.preventDefault()
+  event.stopPropagation()
+  let url = event.target.closest("[data-href]").getAttribute("data-href")
+  location.href = url
+}
+
+const browse = (event) => {
+  event.preventDefault()
+  event.stopPropagation()
+  let url = event.target.closest("[data-browse-url]").getAttribute("data-browse-url")
+  console.log(url)
+  location.href = url
+}
+
+</script>
+</body>
+</html>
