@@ -2,7 +2,7 @@
   "color": "rgba(255,255,255,0)",
   "symbolColor": "silver",
   "xterm": {
-    "fontSize": 20,
+    "fontSize": 10,
     "theme": {
       "foreground": "#637d75",
       "background": "#0f1610",
