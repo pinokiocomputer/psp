@@ -72,7 +72,7 @@ To customize the home page, you can write your own custom `index.ejs`. The templ
     - `path`: The file path of the script that's running
     - `name`: The file name
 
-You can do this by adding your own `/web/views/index.ejs` file. Here's an example:
+You can do this by adding your own [web/views/index.ejs](web/views/index.ejs) file. Here's an example:
 
 ```html
 <html>
@@ -100,6 +100,20 @@ You can do this by adding your own `/web/views/index.ejs` file. Here's an exampl
   </body>
 </html>
 ```
+
+
+If you look at the index.ejs file, it includes a line where it sets the background to `url(bg.gif)`: https://github.com/pinokiocomputer/psp/blob/main/web/views/index.ejs#L21
+
+You can find the bg.gif file under [web/public/bg.gif](web/public/bg.gif).
+
+- **To change the background image:** Put some image file in the [web/public](web/public) folder, and change the https://github.com/pinokiocomputer/psp/blob/main/web/views/index.ejs#L21 line to point to the image file (For example if the image file name was "custom-bg.png", the updated line will be `background-image: url('custom_bg.png');`
+- **To use a background color instead of image:** Just change the background attribute to `background: red;`, etc.
+
+Remember, you have FULL control over how the home page behaves, it's not just about the design, you can use JavaScript to add dynamic logic, as well as use the [kernel API](https://github.com/pinokiocomputer/pinokiod/blob/main/kernel/index.js) to get low level access to Pinokio.
+
+
+
+To change the background
 
 ## 2. Customize the App Page
 
