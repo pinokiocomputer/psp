@@ -2,7 +2,7 @@
   background: greenyellow !important;
   color: rgba(0,0,0,0.8) !important;
 }
-body {
+body, .terminal-container {
   background: #0f1610 !important;
 }
 header, footer {
