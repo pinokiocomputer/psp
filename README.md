@@ -83,18 +83,18 @@ You can do this by adding your own [web/views/index.ejs](web/views/index.ejs) fi
     <main>
       <% items.forEach((item) => { %>
         <% if (item.running) { %>
-          <a class='item running' data-browse-url="<%=item.browse_url%>" data-href="<%=item.url%    >" onclick="dblclick(event)">
-            <img src="<%=item.icon%>"/>
-            <div class='name'><%=item.name%></div>
+          <a class='item running' data-browse-url="<%= item.browse_url %>" data-href="<%= item.url %>" onclick="dblclick(event)">
+            <img src="<%= item.icon %>"/>
+            <div class='name'><%= item.name %></div>
           </a>
         <% } else { %>
-          <a class='item' data-browse-url="<%=item.browse_url%>" data-href="<%=item.url%>" data-    name="<%=item.name%>" data-description="<%=item.description%>" data-path="<%=item.path%>"     onclick="dblclick(event)">
+          <a class='item' data-browse-url="<%= item.browse_url %>" data-href="<%= item.url %>" data-name="<%= item.name %>" data-description="<%= item.description %>" data-path="<%= item.path %>" onclick="dblclick(event)">
             <% if (item.icon) { %>
-              <img src="<%=item.icon%>"/>
+              <img src="<%= item.icon %>"/>
             <% } else { %>
               <img src="icon.png"/>
             <% } %>
-            <div class='name'><%=item.name%></div>
+            <div class='name'><%= item.name %></div>
           </a>
         <% } %>
       <% }) %>
